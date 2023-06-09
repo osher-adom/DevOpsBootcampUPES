@@ -12,14 +12,7 @@ Default gateway IP
 
 DHCP IP allocation sys-logs
 -------------------
-Jun  9 07:09:51 ip-10-0-0-148 dhclient[347]: Internet Systems Consortium DHCP Client 4.4.1
-Jun  9 07:09:51 ip-10-0-0-148 dhclient[347]: For info, please visit https://www.isc.org/software/dhcp/
-Jun  9 07:09:51 ip-10-0-0-148 dhclient[347]: DHCPDISCOVER on eth0 to 255.255.255.255 port 67 interval 3 (xid=0xe0084e3c)
-Jun  9 07:09:51 ip-10-0-0-148 dhclient[347]: DHCPOFFER of 10.0.0.148 from 10.0.0.1
-Jun  9 07:09:51 ip-10-0-0-148 dhclient[347]: DHCPREQUEST for 10.0.0.148 on eth0 to 255.255.255.255 port 67 (xid=0x3c4e08e0)
-Jun  9 07:09:51 ip-10-0-0-148 dhclient[347]: DHCPACK of 10.0.0.148 from 10.0.0.1 (xid=0xe0084e3c)
-Jun  9 07:09:51 ip-10-0-0-148 systemd-networkd[382]: eth0: DHCPv4 address 10.0.0.148/24 via 10.0.0.1
-Jun  9 07:09:51 ip-10-0-0-148 kernel: [    7.538455] audit: type=1400 audit(1686294584.316:5): apparmor="STATUS" operation="profile_load" profile="unconfined" name="/usr/lib/NetworkManager/nm-dhcp-client.action" pid=312 comm="apparmor_parser"
-Jun  9 07:09:51 ip-10-0-0-148 kernel: [    7.539435] audit: type=1400 audit(1686294584.316:6): apparmor="STATUS" operation="profile_load" profile="unconfined" name="/usr/lib/NetworkManager/nm-dhcp-helper" pid=312 comm="apparmor_parser"
-Jun  9 08:13:23 ip-10-0-0-148 NetworkManager[2277]: <info>  [1686298403.5169] dhcp-init: Using DHCP client 'internal'
-
+DHCPDISCOVER on eth0 to 255.255.255.255 port 67 interval 3 (xid=0xe0084e3c)
+DHCPOFFER of 10.0.0.148 from 10.0.0.1
+DHCPREQUEST for 10.0.0.148 on eth0 to 255.255.255.255 port 67 (xid=0x3c4e08e0)
+DHCPACK of 10.0.0.148 from 10.0.0.1 (xid=0xe0084e3c)
