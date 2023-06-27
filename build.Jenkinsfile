@@ -8,7 +8,7 @@ pipeline {
     }
 
     options {
-        timeout(time: 30, unit: 'MINUTES')
+        timeout(time: 35, unit: 'MINUTES')
         timestamps()
     }
 
