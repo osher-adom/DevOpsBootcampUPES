@@ -19,6 +19,11 @@ pipeline {
     }
 
     stages {
+	stage('ECR Login') {
+            steps {
+                sh 'aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin 854171615125.dkr.ecr.eu-west-1.amazonaws.com'
+            }
+        }
         stage('Image Build') {
             steps {
                 sh "cd yolo5 && docker build -t ${IMAGE_NAME}:${IMAGE_TAG} ."
