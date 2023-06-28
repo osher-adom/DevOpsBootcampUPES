@@ -22,7 +22,7 @@ pipeline {
 	stage('ECR Login') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'ecr-login-creds', passwordVariable: 'SECRET_KEY', usernameVariable: 'ACCESS_KEY')]) {
-                    aws configure set aws_access_key_id ${ACCESS_KEY} aws_secret_access_key ${SECRET_KEY}
+                    aws configure set aws_access_key_id "${ACCESS_KEY}" aws_secret_access_key "${SECRET_KEY}"
                     sh 'aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin 854171615125.dkr.ecr.eu-west-1.amazonaws.com'
                 }            
             }
