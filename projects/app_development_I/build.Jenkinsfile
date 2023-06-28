@@ -15,7 +15,7 @@ pipeline {
     environment {
         IMAGE_NAME = 'osher-yolo5'
         IMAGE_TAG = "${GIT_COMMIT}"
-        REPO_URL = '854171615125.dkr.ecr.eu-west-1.amazonaws.com/jenkins-agent'
+        REPO_URL = '854171615125.dkr.ecr.eu-west-1.amazonaws.com'
     }
 
     stages {
