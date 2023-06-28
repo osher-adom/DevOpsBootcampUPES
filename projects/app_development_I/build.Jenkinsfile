@@ -32,7 +32,7 @@ pipeline {
         }
         stage('Image Build') {
             steps {
-                sh "cd yolo5 && docker build -t ${IMAGE_NAME}:${IMAGE_TAG} ."
+                sh "cd projects/app_development_I/yolo5 && docker build -t ${IMAGE_NAME}:${IMAGE_TAG} ."
             }
         }
 
