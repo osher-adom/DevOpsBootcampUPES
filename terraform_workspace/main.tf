@@ -7,7 +7,7 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "4.16"
+      version = "~>4.16"
     }
   }
 
@@ -15,30 +15,70 @@ terraform {
 }
 
 
-/*
- The provider block configures the specified provider, in this case aws.
- You can use multiple provider blocks in your Terraform configuration to manage resources from different providers.
-*/
 provider "aws" {
-  region  = "<aws-region>"
+  profile = "upes"
+  region  = "eu-west-1"
 }
 
-
-/*
- Use resource blocks to define components of your infrastructure.
- A resource might be a physical or virtual component such as an EC2 instance.
- A resource block declares a resource of a given type ("aws_instance") with a given local name ("app_server").
- The name is used to refer to this resource from elsewhere in the same Terraform module, but has no significance outside that module's scope.
- The resource type and name together serve as an identifier for a given resource and so must be unique within a module.
-
- For full description of this resource: https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/instance
-*/
 resource "aws_instance" "app_server" {
-  ami           = "<ec2-ami-here>"
-  instance_type = "t2.micro"
+  ami           = "ami-05432c5a0f7b1bfd0"
+  instance_type = var.env == "prod" ? "t2.micro" : "t2.nano"
+  vpc_security_group_ids = [aws_security_group.sg_web.id]
+  key_name = "bootcamp"
+
+  depends_on = [
+   aws_s3_bucket.data_bucket
+  ]
 
   tags = {
-    Name = "<instance-name>"
+    Name = "Terraform-${var.env}"
     Terraform = "true"
   }
 }
+
+resource "aws_security_group" "sg_web" {
+  name = "${var.resource_alias}-${var.env}-sg"
+
+  ingress {
+    from_port   = "8080"
+    to_port     = "8080"
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Env         = var.env
+    Terraform   = true
+  }
+}
+
+resource "aws_s3_bucket" "data_bucket" {
+  bucket = "${var.resource_alias}-${var.env}-bucket"
+
+  tags = {
+    Name        = "${var.resource_alias}-bucket"
+    Env         = var.env
+    Terraform   = true
+  }
+}
+
+module "app_vpc" {
+  source  = "terraform-aws-modules/vpc/aws"
+  version = "3.14.0"
+
+  name = "${var.resource_alias}-tvpc"
+  cidr = var.vpc_cidr
+
+  azs             = ["eu-west-1a", "eu-west-1b", "eu-west-1c"]
+  private_subnets = var.vpc_private_subnets
+  public_subnets  = var.vpc_public_subnets
+
+  enable_nat_gateway = true
+
+  tags = {
+    Name        = "${var.resource_alias}-tvpc"
+    Env         = var.env
+    Terraform   = true
+  }
+}
+
